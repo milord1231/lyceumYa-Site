@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="bg-light">
+
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>Добавление продукта</h2>
+      <p class="lead">Здесь необходимо указать данные о новом, добавляемом продукта. После корректного ввода данных, продукт будет виден для всех во вкладке "Каталог".</p>
+    </div>
+    <div>
+      <!--
+      <a href="/addby-xlsx" class="w-100 btn btn-success btn-lg">Загрузить данные из Excel файла (.xlsx)</a>
+      <a href="/download/shab.xlsx" download>Скачать шаблон Excel файла</a>
+    </div>
+  -->
+
+    <div class="row g-3">
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Основное</h4>
+        <form class="needs-validation" novalidate method="post" enctype="multipart/form-data">
+            <label for="lastName" class="form-label">Классификация продукта</label>
+            <div class="col-sm-6" style="max-width: 100%; width: auto; max-height:100%; height:80px; overflow:auto; align-self: center; margin: 10px auto; border: 4px gold; padding: 10px">
+                <input type="radio" checked name='type_product' value="1" id='type_product'/>Хлеб и хлебобулочные изделия<br>
+                <input type="radio" name='type_product'  value="3" id='type_product'/>Пирожное<br>
+                <input type="radio" name='type_product' value="4" id='type_product'/>Пирог<br>
+                <input type="radio" name='type_product' value="5" id='type_product'/>Торт<br>
+                <input type="radio" name='type_product' value="2" id='type_product'/>Печенье<br>
+            </div>
+            <br>
+            <hr>
+            <br>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Наименование продукта</label>
+              <input type="text" class="form-control" id="title" placeholder="Укажите краткое наименование продукта" name="title" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Полное наименование продукта</label>
+              <textarea type="text" class="form-control" id="all_title" placeholder="Укажите полное наименование продукта (поле можно растягивать)" name="all_title" value="" required style="height: 50px; max-height: 300px; min-height: 40px;"></textarea>
+
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Масса продукта</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">гр.</span>
+                <input type="number" class="form-control" id="mass" placeholder="Масса нетто " name="mass" required>
+
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Состав продукта</label>
+              <textarea type="text" style="height: 40px; max-height: 500px; min-height: 40px;" class="form-control" name="made_of" placeholder="Состав продукта через запятую" required></textarea>
+             </div>
+            </div>
+            <hr>
+            <div class="col-12">
+              <label for="address" step="any" class="form-label">Пищевая ценность</label>
+              <input type="number" step="any" class="form-control" name="PV-B" placeholder="Белки г." required><br>
+              <input type="number" step="any" class="form-control" name="PV-Z" placeholder="Жиры г." required><br>
+              <input type="number" step="any" class="form-control" name="PV-Y" placeholder="Углеводы г." required>
+            <hr>
+            </div>
+
+            <div class="col-12">
+                <label for="address" class="form-label">Энергетическая ценность</label><br>
+                <div class="input-group has-validation">
+                    <span class="input-group-text">кКал.</span>
+                    <input type="number" step="any" class="form-control" name="EV" placeholder="Энергетическая ценность (кКал)" required>
+                </div>
+              <hr>
+              <div class="col-12">
+                <label for="address" class="form-label">Срок годности</label><br>
+                <div class="input-group has-validation">
+                    <span class="input-group-text">д.</span>
+                    <input type="number" class="form-control" name="time_out" placeholder="Срок годности продукта в сутках" required>
+                </div>
+              <hr>
+              <br>
+              <div class="col-12">
+                <label for="email" class="form-label">ГОСТЫ продукта</label>
+                <textarea type="text" style="height: 40px; max-height: 500px; min-height: 40px;" class="form-control" name="GOST" placeholder="ГОСТЫ продукта через запятую (ГОСТ ХХХХХ-ХХХХ, СТО XXXXXXXX-XXX-XXXX)" required></textarea>
+               </div>
+               <br>
+               <hr>
+               <div style="align-self: center; margin: 10px auto;">
+               {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li style="color:red;"><strong>{{ message }}</strong></li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+              </div>
+               <div class="col-12">
+                <label class="form-label">Артикул</label>
+                <textarea style="height: 40px; max-height: 500px; min-height: 40px;" class="form-control" id="arcticle" name="arcticle" placeholder="Артикул продукта" required></textarea>
+               </div>
+            <hr>
+            <br>
+            <div class="col-10">
+                <label for="email" class="form-label">Описание продукта</label>
+                <textarea type="text" style="height: 40px; max-height: 500px; min-height: 40px;" class="form-control" name="about" placeholder="Описание продукта" required></textarea>
+            </div>
+            <br>
+        <hr>
+        <div class="col-10">
+            <label for="email" class="form-label">Фото продукта</label><br>
+            <input type="file" name="file">
+        </div>
+
+        <hr>
+
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-success btn-lg" type="submit">Создать продукт</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+<div style="height: 60px;">
+
+</div>
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      <script>
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+            })
+        })()
+
+      </script>
+      <script>var x = 0;
+
+        function addInput() {
+            var str = '<div class="input"><input type="text" style="width: 300px; margin: 10px auto;" placeholder="Ингридиент"><span class="add-btn" id="input_f' + (x + 1)+ '" style="margin-left: 10px;" onclick="removeInputField(this)">-</span><div id="input' + (x + 1) + '"></div></div>';
+            document.getElementById('input' + x).innerHTML = str;
+            x++;
+            document.getElementById("input_f"+(x-1)).style.display = "none";
+        }
+
+        function removeInputField (selectedField) {
+        selectedField.closest('.input').remove();
+        document.getElementById("input_f"+(x-1)).style.display = "block";
+        x--;
+    }
+    </script>
+    <script>  $('.nav-toggle').on('click', function(){
+      $('#menu').toggleClass('active');
+      });
+      </script>
+
+
+
+{% endblock%}
+
